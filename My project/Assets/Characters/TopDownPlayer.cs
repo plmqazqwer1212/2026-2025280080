@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+
 public class TopDownPlayer : MonoBehaviour
 {
     public float moveSpeed = 4f;
@@ -8,6 +9,7 @@ public class TopDownPlayer : MonoBehaviour
     public Sprite[] upSprites;
     public Sprite[] leftSprites;
     public Sprite[] rightSprites;
+    public DialogueBox dialogueBox;
     private Vector2 moveInput;
     private Vector2 facingDir = Vector2.down;
     private Rigidbody2D rb;
@@ -27,6 +29,7 @@ public class TopDownPlayer : MonoBehaviour
     }
     void Update()
     {
+        if (dialogueBox.isOpen) { moveInput = Vector2.zero; }
         rb.linearVelocity = moveInput * moveSpeed;
         if (facingDir.y > 0) { currentSprites = upSprites; }
         else if (facingDir.y < 0) { currentSprites = downSprites; }
@@ -45,4 +48,5 @@ public class TopDownPlayer : MonoBehaviour
         else { frameIndex = 0; }
         sr.sprite = currentSprites[frameIndex];
     }
+
 }
